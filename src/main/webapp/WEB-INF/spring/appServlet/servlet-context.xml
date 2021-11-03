@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context 설정 내용-->
+	
+	<!-- @Controller어노테이션을 자동으로 반으로 등록해준다 -->
+	<annotation-driven />
+
+	<!-- 정적파일(css, html, img, javascript)들의 경로를 설정해준다.
+	webwapp/resoureces의 경로다
+	-->
+	<!-- wapapp에 있는 리소스/정적파일  main/java/리소스는 다른거 -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- 컨트롤러가 리턴으로 돌려준 문자를 'prefix+문자+suffix'로 만들어서 전달-->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	<!-- 어노테이션이 붙어있는 것들을 빈으로 등록해준다 -->
+	<context:component-scan base-package="com.care" />
+	<!-- care안의 내용을 전부 다 본다 -->
+	
+	<!-- 나누어서 사용도 가능하다 -->
+	<context:component-scan base-package="com.care.root" />
+	<context:component-scan base-package="com.care.get_post" />
+	
+	<beans:bean id ="members" class="com.care.root.MemberService"/>	
+	
+</beans:beans>
